@@ -7,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrl: './consultation-video.component.scss'
 })
 export class ConsultationVideoComponent {
+  title = 'Consultation Vidéo avec Nouveau Patient';
+  status = 'En direct';
+  patient = {
+    initials: 'NP',
+    name: 'Nouveau Patient',
+    status: 'Patient en ligne'
+  };
 
 }

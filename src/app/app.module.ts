@@ -62,6 +62,7 @@ import { DashboardComponentAdmin} from './admin/dashboard/dashboard.component';
 import {DashboardComponent} from './shared/dashboard/dashboard.component';
 import { DashboardMedecinComponent } from './medecin/dashboard-medecin/dashboard-medecin.component';
 import { ConsultationVideoComponent } from './medecin/consultation-video/consultation-video.component';
+import { ConsultationAudioComponent } from './medecin/consultation-audio/consultation-audio.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,6 +80,7 @@ import { ConsultationVideoComponent } from './medecin/consultation-video/consult
     DashboardComponentAdmin,
     DashboardMedecinComponent,
     ConsultationVideoComponent,
+    ConsultationAudioComponent,
 
   ],
   imports: [
