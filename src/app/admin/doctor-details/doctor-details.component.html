@@ -1,0 +1,314 @@
+<div class="doctor-detail-container" *ngIf="doctor && !isLoading; else loading">
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a (click)="goBack()" class="back-link">
+      <mat-icon>arrow_back</mat-icon> Retour à la liste
+    </a>
+    <span class="separator">/</span>
+    <span>Détails du médecin</span>
+    <span class="separator">/</span>
+    <span class="current-page">{{ doctor.fullName }}</span>
+  </div>
+
+  <mat-card class="doctor-header-card">
+    <mat-card-header>
+      <div class="avatar-placeholder">
+        <mat-icon>account_circle</mat-icon>
+      </div>
+      <div class="header-info">
+        <div class="header-title-row">
+          <mat-card-title>{{ doctor.fullName }}</mat-card-title>
+          <div class="onmc-badge">
+            <mat-icon>badge</mat-icon>
+            <span>ONMC: {{ doctor.onmc }}</span>
+          </div>
+        </div>
+        <mat-chip-listbox>
+          <mat-chip
+            [ngClass]="{
+              'status-pending': doctor.status === 'pending',
+              'status-validated': doctor.status === 'validated',
+              'status-rejected': doctor.status === 'rejected'
+            }"
+          >
+            {{ doctor.status === 'pending' ? 'En attente' : doctor.status === 'validated' ? 'Validé' : 'Rejeté' }}
+          </mat-chip>
+        </mat-chip-listbox>
+        <mat-card-subtitle>{{ doctor.specialite }}</mat-card-subtitle>
+        <div class="contact-info">
+          <div class="contact-item">
+            <mat-icon>email</mat-icon>
+            <span>{{ doctor.email }}</span>
+          </div>
+          <div class="contact-item">
+            <mat-icon>phone</mat-icon>
+            <span>{{ doctor.numTelephone }}</span>
+          </div>
+          <div class="contact-item">
+            <mat-icon>location_on</mat-icon>
+            <span>{{ doctor.lieuTravail }}</span>
+          </div>
+        </div>
+      </div>
+    </mat-card-header>
+
+    <!-- Navigation par onglets -->
+    <mat-tab-group
+      [(selectedIndex)]="selectedTabIndex"
+      (selectedIndexChange)="onTabChange($event)"
+      class="section-tabs"
+    >
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>person</mat-icon>
+          Profil
+        </ng-template>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>description</mat-icon>
+          Documents
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+
+  <!-- Contenu principal -->
+  <div class="main-content">
+    <!-- Section Profil -->
+    <div *ngIf="activeSection === 'profile'">
+      <!-- Statistiques rapides -->
+      <div class="stats-section">
+        <mat-card class="stat-card">
+          <mat-card-content>
+            <div class="stat-header">
+              <mat-icon class="stat-icon">description</mat-icon>
+              <mat-card-title>Documents</mat-card-title>
+            </div>
+            <div class="stat-value">{{ documents.length }}</div>
+            <div class="stat-detail">
+              Vérifiés: {{ verifiedDocuments }} / {{ documents.length }}
+              <mat-progress-bar
+                mode="determinate"
+                [value]="(verifiedDocuments / documents.length) * 100 || 0"
+              ></mat-progress-bar>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="stat-card">
+          <mat-card-content>
+            <div class="stat-header">
+              <mat-icon class="stat-icon">calendar_today</mat-icon>
+              <mat-card-title>Jours inscrits</mat-card-title>
+            </div>
+            <div class="stat-value">{{ doctor.stats.daysRegistered }}</div>
+            <div class="stat-detail">
+              Inscrit depuis le
+              <span *ngIf="doctor.createdAt && isValidDate(doctor.createdAt)">
+                {{ doctor.createdAt | date: 'short' }}
+              </span>
+              <span *ngIf="!doctor.createdAt || !isValidDate(doctor.createdAt)">Non disponible</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="stat-card">
+          <mat-card-content>
+            <div class="stat-header">
+              <mat-icon class="stat-icon">access_time</mat-icon>
+              <mat-card-title>Dernière activité</mat-card-title>
+            </div>
+            <div class="stat-value">
+              <span *ngIf="doctor.derniereConnexion && isValidDate(doctor.derniereConnexion)">
+                {{ doctor.derniereConnexion | date: 'short' }}
+              </span>
+              <span *ngIf="!doctor.derniereConnexion || !isValidDate(doctor.derniereConnexion)">Non disponible</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="stat-card">
+          <mat-card-content>
+            <div class="stat-header">
+              <mat-icon class="stat-icon">person</mat-icon>
+              <mat-card-title>Profil complété</mat-card-title>
+            </div>
+            <div class="stat-value">{{ doctor.stats.completionScore }}%</div>
+            <mat-progress-bar mode="determinate" [value]="doctor.stats.completionScore"></mat-progress-bar>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <!-- Statut du profil -->
+      <mat-card class="status-section">
+        <mat-card-header>
+          <mat-card-title>Statut du profil</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="status-info">
+            <span class="status-label">Statut actuel</span>
+            <mat-chip
+              [ngClass]="{
+                'status-pending': doctor.status === 'pending',
+                'status-validated': doctor.status === 'validated',
+                'status-rejected': doctor.status === 'rejected'
+              }"
+            >
+              {{ doctor.status === 'pending' ? 'En attente' : doctor.status === 'validated' ? 'Validé' : 'Rejeté' }}
+            </mat-chip>
+            <span class="status-message" *ngIf="doctor.status === 'pending'">
+              Ce profil est en attente de validation.
+            </span>
+            <span class="status-message" *ngIf="doctor.status === 'rejected' && doctor.motifRefus">
+              Motif du refus : {{ doctor.motifRefus }}
+            </span>
+          </div>
+        </mat-card-content>
+        <mat-card-actions *ngIf="doctor.status === 'pending'">
+          <button mat-raised-button color="primary" (click)="validateDoctor()">
+            <mat-icon>check</mat-icon> Accepter
+          </button>
+          <button mat-raised-button color="warn" (click)="rejectDoctor()">
+            <mat-icon>close</mat-icon> Refuser
+          </button>
+        </mat-card-actions>
+      </mat-card>
+
+      <!-- Informations personnelles -->
+      <mat-card class="info-section">
+        <mat-card-header>
+          <mat-card-title>Informations personnelles</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="label">Nom complet</span>
+              <span class="value">{{ doctor.fullName }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Spécialité</span>
+              <span class="value">{{ doctor.specialite }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Email</span>
+              <span class="value">{{ doctor.email }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Téléphone</span>
+              <span class="value">{{ doctor.numTelephone }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Numéro ONMC</span>
+              <span class="value highlighted">{{ doctor.onmc }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Lieu de travail</span>
+              <span class="value">{{ doctor.lieuTravail }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Date d'inscription</span>
+              <span class="value">
+                <span *ngIf="doctor.createdAt && isValidDate(doctor.createdAt)">
+                  {{ doctor.createdAt | date: 'short' }}
+                </span>
+                <span *ngIf="!doctor.createdAt || !isValidDate(doctor.createdAt)">Non disponible</span>
+              </span>
+            </div>
+            <div class="info-item">
+              <span class="label">Dernière activité</span>
+              <span class="value">
+                <span *ngIf="doctor.derniereConnexion && isValidDate(doctor.derniereConnexion)">
+                  {{ doctor.derniereConnexion | date: 'short' }}
+                </span>
+                <span *ngIf="!doctor.derniereConnexion || !isValidDate(doctor.derniereConnexion)">Non disponible</span>
+              </span>
+            </div>
+            <div class="info-item coordinates-item">
+              <span class="label">Coordonnées</span>
+              <div class="value-with-action">
+                <span>{{ doctor.latitude }}, {{ doctor.longitude }}</span>
+                <button mat-button color="primary" (click)="viewOnMap()">
+                  <mat-icon>map</mat-icon> Voir sur la carte
+                </button>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Section Documents -->
+    <div *ngIf="activeSection === 'documents'" class="documents-section">
+      <div class="section-header">
+        <div>
+          <h2>Documents</h2>
+          <p>Documents fournis par le médecin</p>
+        </div>
+        <button class="add-button">
+          <mat-icon>add</mat-icon> Ajouter un document
+        </button>
+      </div>
+
+      <div class="documents-grid">
+        <mat-card *ngFor="let document of documents">
+          <mat-card-content class="document-content">
+            <div class="document-header">
+              <div [class]="'document-icon ' + getFileIconColor(document.type)">
+                <mat-icon>{{ getFileIcon(document.type) }}</mat-icon>
+              </div>
+              <div class="document-info">
+                <div class="document-title-row">
+                  <h4>{{ document.titre }}</h4>
+                  <div [class]="'document-badge ' + (document.status === 'validated' ? 'verified' : document.status === 'pending' ? 'pending' : 'rejected')">
+                    {{ document.status === 'validated' ? 'Vérifié' : document.status === 'pending' ? 'En attente' : 'Rejeté' }}
+                  </div>
+                </div>
+                <div class="document-meta">
+                  <span>{{ document.type }}</span>
+                  <span>•</span>
+                  <span *ngIf="document.createdAt && isValidDate(document.createdAt)">
+                    {{ document.createdAt | date: 'short'}}
+                  </span>
+                  <span *ngIf="!document.createdAt || !isValidDate(document.createdAt)">Non disponible</span>
+                </div>
+                <div class="document-date" *ngIf="document.status === 'rejected' && document.motifRefus">
+                  <mat-icon>warning</mat-icon>
+                  <span>Motif de refus: {{ document.motifRefus }}</span>
+                </div>
+              </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="document-actions">
+              <button mat-button>
+                <mat-icon>visibility</mat-icon> Aperçu
+              </button>
+              <div>
+                <button mat-button>
+                  <mat-icon>download</mat-icon> Télécharger
+                </button>
+                <button mat-button color="primary" *ngIf="document.status === 'pending'" class="validate-button" (click)="validateDocument(document.id)">
+                  <mat-icon>check</mat-icon> Valider
+                </button>
+                <button mat-button color="warn" *ngIf="document.status === 'pending'" class="reject-button" (click)="rejectDocument(document.id)">
+                  <mat-icon>close</mat-icon> Refuser
+                </button>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+<!--        <mat-card class="add-document-card">-->
+<!--          <mat-card-content>-->
+<!--            <mat-icon>add</mat-icon>-->
+<!--            <p>Ajouter un document</p>-->
+<!--            <span>Cliquez pour télécharger</span>-->
+<!--          </mat-card-content>-->
+<!--        </mat-card>-->
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="loading-container">
+    <mat-spinner></mat-spinner>s
+  </div>
+</ng-template>

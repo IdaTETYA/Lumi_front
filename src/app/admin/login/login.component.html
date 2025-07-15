@@ -1,0 +1,45 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="logo-container">
+      <mat-icon>lock</mat-icon>
+      <h2 class="title">Login</h2>
+    </div>
+
+    <div class="welcome-text">Welcome back</div>
+    <p class="welcome-subtext">Please sign in to your account</p>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input id="email" type="email" formControlName="email" placeholder="admin@company.com" required/>
+        <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.hasError('required')" class="error">
+          Email is required
+        </div>
+        <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.hasError('email')" class="error">
+          Please enter a valid email address
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" placeholder="Enter your password" required/>
+        <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')"
+             class="error">
+          Password is required
+        </div>
+        <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.hasError('minlength')"
+             class="error">
+          Password must be at least 8 characters long
+        </div>
+      </div>
+      <div class="options">
+        <label>
+          <input type="checkbox" name="remember"/> Remember me
+        </label>
+        <a class="forgot-password">Forgot password?</a>
+      </div>
+      <button type="submit" [disabled]="loginForm.invalid || isLoading" class="sign-in-btn">
+        <span *ngIf="!isLoading">Sign In</span>
+        <div *ngIf="isLoading" class="spinner"></div>
+      </button>
+    </form>
+  </div>
+</div>

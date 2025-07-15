@@ -1,0 +1,14 @@
+<app-reusable-table
+  [data]="documents"
+  [columns]="columns"
+  [config]="config"
+  [filterButtons]="filterButtons"
+  [actionButtons]="actionButtons"
+  [statusConfig]="statusConfig"
+  [searchFields]="searchFields"
+  [isLoading]="isLoading"
+  (itemClick)="onItemClick($event)"
+  (actionClick)="onActionClick($event.action, $event.item)"
+  (addClick)="onAddClick()"
+  (filterChange)="onFilterChange($event)"
+></app-reusable-table>

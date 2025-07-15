@@ -1,0 +1,20 @@
+<div class="stats-card">
+  <div [class]="'stats-background bg-gradient-to-br ' + stat.gradient + ' opacity-5'"></div>
+  <div [class]="'stats-decoration bg-gradient-to-br ' + stat.gradient + ' opacity-10'"></div>
+
+  <div class="stats-content">
+    <div class="stats-info">
+      <p class="stats-title">{{ stat.title }}</p>
+      <p class="stats-value">{{ stat.value }}</p>
+      <p *ngIf="stat.description" class="stats-description">{{ stat.description }}</p>
+      <div *ngIf="stat.change" class="stats-change">
+        <span [class]="'change-badge ' + getChangeClass()">
+          {{ stat.change }}
+        </span>
+      </div>
+    </div>
+    <div [class]="'stats-icon bg-gradient-to-br ' + stat.gradient">
+      <fa-icon [icon]="['fas', stat.icon]" class="text-white"></fa-icon>
+    </div>
+  </div>
+</div>

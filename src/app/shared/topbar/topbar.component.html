@@ -1,0 +1,52 @@
+<div class="topbar" >
+  <!-- Breadcrumbs -->
+  <div class="breadcrumb-container">
+    <ng-container *ngFor="let crumb of breadcrumbs; let last = last">
+      <a [routerLink]="crumb.url" *ngIf="!last" class="breadcrumb-link">{{ crumb.label }}</a>
+      <span *ngIf="last" class="breadcrumb-active">{{ crumb.label }}</span>
+      <span *ngIf="!last" class="breadcrumb-separator">/</span>
+    </ng-container>
+  </div>
+
+  <!-- Spacer -->
+  <div class="spacer"></div>
+
+  <!-- Profil avec menu déroulant -->
+  <div class="profile-section" (click)="toggleProfileMenu()" (blur)="isProfileMenuOpen = false">
+    <div class="profile-icon" [style.background-image]="user?.image ">
+      <span *ngIf="!user?.image">{{ userInitials }}</span>
+    </div>
+    <span class="profile-indicator">
+      <fa-icon [icon]="['fas', 'caret-down']"></fa-icon>
+    </span>
+    <div class="profile-menu" *ngIf="isProfileMenuOpen">
+      <ul>
+        <li *ngFor="let option of profileOptions" (click)="option === 'Déconnexion' ? logout() : null">
+          <span>{{ option }}</span>
+          <fa-icon *ngIf="option === 'Déconnexion'" [icon]="['fas', 'sign-out-alt']" class="logout-icon"></fa-icon>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Notifications -->
+  <div class="notification-section" (click)="toggleNotificationPanel()">
+    <button class="notification-button">
+      <fa-icon [icon]="['fas', 'bell']" class="notification-icon"></fa-icon>
+      <span class="notification-badge">3</span>
+    </button>
+  </div>
+</div>
+
+<!-- Panneau de notifications -->
+<div class="notification-panel" [class.open]="isNotificationPanelOpen">
+  <div class="notification-header">
+    <h3>Notifications Récentes</h3>
+    <span class="close-icon" (click)="isNotificationPanelOpen = false">✖</span>
+  </div>
+  <div class="notification-list">
+    <div class="notification-item" *ngFor="let i of [1, 2, 3]">
+      Notification {{ i }} - {{ '05:53 PM WAT, 09/07/2025' | date:'short' }}
+    </div>
+  </div>
+</div>

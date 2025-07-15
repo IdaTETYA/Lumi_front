@@ -1,0 +1,47 @@
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  box-sizing: border-box; /* Empêche les débordements */
+}
+
+.content-wrapper {
+  display: flex;
+  flex: 1;
+  height: calc(100% - 60px); /* Ajusté selon la hauteur de la topbar */
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+app-sidebar {
+  flex: 0 0 auto;
+  height: 100%;
+  transition: flex-basis 0.3s ease;
+  box-sizing: border-box;
+}
+
+.content {
+  flex: 1;
+  padding: 20px; /* Votre padding existant */
+  overflow-y: auto;
+  background-color: #F5F6FA;
+  min-width: 0;
+  box-sizing: border-box; /* Assure que le padding ne dépasse pas */
+  transition: flex-basis 0.3s ease;
+}
+
+.content.expanded {
+  flex-basis: calc(100%); /* Exactement l'espace restant */
+}
+
+.content:not(.expanded) {
+  flex-basis: calc(100%); /* Exactement l'espace restant */
+}
+
+@media (max-width: 767px) {
+  .content {
+    padding: 10px;
+    flex-basis: calc(100% - 60px);
+  }
+}

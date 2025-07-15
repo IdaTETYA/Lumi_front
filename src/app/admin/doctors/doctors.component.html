@@ -1,0 +1,143 @@
+<div class="dashboard-container">
+  <h2 class="dashboard-title"> Médecins</h2>
+  <p class="dashboard-subtitle">Ensemble de médecins enregistrés</p>
+</div>
+
+<div class="management-card">
+  <div class="filter-section">
+    <div class="search-bar">
+      <input
+        [formControl]="searchControl"
+        placeholder="Rechercher par nom, spécialité, email..."
+        class="search-input"
+        type="text"
+        aria-label="Rechercher dans la liste des médecins"
+      />
+      <button
+        class="clear-btn"
+        *ngIf="searchControl.value"
+        (click)="clearSearch()"
+        title="Effacer la recherche"
+      >
+        <span class="icon-cross"><fa-icon [icon]="faTimes"></fa-icon></span>
+      </button>
+    </div>
+    <div class="filter-controls">
+      <button
+        class="filter-btn"
+        [class.active]="statusFilterControl.value === 'all'"
+        (click)="selectStatus('all')"
+        title="Tous les statuts"
+      >
+        Tous
+      </button>
+      <button
+        class="filter-btn"
+        [class.active]="statusFilterControl.value === 'pending'"
+        (click)="selectStatus('pending')"
+        title="Statut en attente"
+      >
+        En attente
+      </button>
+      <button
+        class="filter-btn"
+        [class.active]="statusFilterControl.value === 'validated'"
+        (click)="selectStatus('validated')"
+        title="Statut validé"
+      >
+        Validé
+      </button>
+      <button
+        class="filter-btn"
+        [class.active]="statusFilterControl.value === 'rejected'"
+        (click)="selectStatus('rejected')"
+        title="Statut rejeté"
+      >
+        Rejeté
+      </button>
+      <button class="reset-btn" (click)="clearSearch()" title="Réinitialiser les filtres">
+        <span class="icon">⟳</span> Actualiser
+      </button>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
+      <tr>
+        <th *ngFor="let column of displayedColumns" class="table-header" scope="col">
+          {{ column === 'Numero ONMC' ? 'Numero ONMC' : column === 'name' ? 'Nom' : column === 'specialty' ? 'Spécialité' : column === 'email' ? 'Email' : column === 'phone' ? 'Téléphone' : column === 'status' ? 'Statut' : column === 'Envoyé le' ? 'Envoyé le' : 'Action' }}
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let doctor of dataSource" class="table-row" [ngClass]="{'clickable': true}">
+        <td class="table-cell" *ngFor="let column of displayedColumns">
+          <ng-container [ngSwitch]="column">
+            <span *ngSwitchCase="'Numero ONMC'">{{ doctor.onmc }}</span>
+            <span *ngSwitchCase="'name'">{{ doctor.nom }}</span>
+            <span *ngSwitchCase="'specialty'">{{ doctor.specialite }}</span>
+            <span *ngSwitchCase="'email'">{{ doctor.email }}</span>
+            <span *ngSwitchCase="'phone'">{{ doctor.numTelephone }}</span>
+            <span *ngSwitchCase="'status'">
+              <span class="status-tag" [ngClass]="{
+                'pending': doctor.status === 'pending',
+                'validated': doctor.status === 'validated',
+                'rejected': doctor.status === 'rejected'
+              }">
+                {{ doctor.status === 'pending' ? 'En attente' : doctor.status === 'validated' ? 'Validé' : doctor.status === 'rejected' ? 'Rejeté' : 'Inconnu' }}
+              </span>
+            </span>
+            <span *ngSwitchCase="'Envoyé le'">{{ doctor.createdAt | date: 'short' }}</span>
+
+            <button class="action-btn view" (click)="viewDoctor(doctor); $event.stopPropagation()"
+                    title="Consulter les détails">
+              <span class="icon" *ngSwitchCase="'Action'"><fa-icon [icon]="faEye"></fa-icon></span>
+            </button>
+
+          </ng-container>
+        </td>
+        <!-- Icône pour consulter les détails -->
+
+      </tr>
+      </tbody>
+    </table>
+    <div *ngIf="dataSource.length === 0" class="no-data">Aucun médecin trouvé.</div>
+  </div>
+
+  <div class="pagination-section">
+    <div class="pagination-controls">
+      <button
+        class="nav-btn"
+        [disabled]="currentPage === 0"
+        (click)="prevPage()"
+        title="Page précédente"
+      >
+        <span class="icon">◄</span> Précédent
+      </button>
+      <span class="page-info">
+        Page {{ currentPage + 1 }} sur {{ Math.ceil(doctors.length / (itemsPerPageControl.value || 10)) }}
+      </span>
+      <button
+        class="nav-btn"
+        [disabled]="currentPage >= Math.ceil(doctors.length / (itemsPerPageControl.value || 10)) - 1"
+        (click)="nextPage()"
+        title="Page suivante"
+      >
+        Suivant <span class="icon">►</span>
+      </button>
+      <span>Afficher :</span>
+      <select [formControl]="itemsPerPageControl" class="page-size">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="action-section">
+    <a routerLink="/admin/doctors/add" class="add-btn" title="Ajouter un médecin">
+      <span class="icon">+</span> Ajouter un médecin
+    </a>
+  </div>
+</div>

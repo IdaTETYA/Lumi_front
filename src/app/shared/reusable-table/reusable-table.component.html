@@ -1,0 +1,184 @@
+<div class="reusable-table-container" [ngStyle]="getCSSVariables()">
+
+  <!-- Header Section -->
+  <div class="dashboard-container" *ngIf="config.title || config.subtitle">
+    <h2 class="dashboard-title" *ngIf="config.title">{{ config.title }}</h2>
+    <p class="dashboard-subtitle" *ngIf="config.subtitle">{{ config.subtitle }}</p>
+  </div>
+
+  <div class="management-card">
+
+    <!-- Filter Section -->
+    <div class="filter-section" *ngIf="config.showSearch || config.showFilters">
+
+      <!-- Search Bar -->
+      <div class="search-bar" *ngIf="config.showSearch">
+        <input
+          [formControl]="searchControl"
+          [placeholder]="config.searchPlaceholder || 'Rechercher...'"
+          class="search-input"
+          type="text"
+          [attr.aria-label]="config.searchPlaceholder || 'Rechercher dans la liste'"
+        />
+        <button
+          class="clear-btn"
+          *ngIf="searchControl.value"
+          (click)="clearSearch()"
+          title="Effacer la recherche"
+        >
+          <fa-icon [icon]="faTimes" class="icon-cross"></fa-icon>
+        </button>
+      </div>
+
+      <!-- Filter Controls -->
+      <div class="filter-controls" *ngIf="config.showFilters && filterButtons.length > 0">
+        <button
+          *ngFor="let filter of filterButtons"
+          class="filter-btn"
+          [class.active]="statusFilterControl.value === filter.value"
+          (click)="selectStatus(filter.value)"
+          [title]="filter.label"
+        >
+          {{ filter.label }}
+        </button>
+        <button
+          class="reset-btn"
+          (click)="clearSearch()"
+          title="Réinitialiser les filtres"
+        >
+          <fa-icon [icon]="faSync" class="icon"></fa-icon> Actualiser
+        </button>
+      </div>
+    </div>
+
+    <!-- Table Container -->
+    <div class="table-container">
+      <!-- Loading Indicator -->
+      <div *ngIf="isLoading" class="loading-spinner">
+        <div class="spinner"></div>
+        <span>Chargement...</span>
+      </div>
+
+      <table class="data-table">
+        <thead>
+        <tr>
+          <th
+            *ngFor="let column of columns"
+            class="table-header"
+            scope="col"
+            [style.width]="column.width"
+          >
+            {{ column.label }}
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr
+          *ngFor="let item of dataSource"
+          class="table-row clickable"
+          (click)="onItemClick(item)"
+        >
+          <td
+            *ngFor="let column of columns"
+            class="table-cell"
+          >
+            <ng-container [ngSwitch]="column.type">
+
+              <!-- Text Type -->
+              <span *ngSwitchCase="'text'">
+                {{ getCellValue(item, column) }}
+              </span>
+
+              <!-- Status Type -->
+              <span *ngSwitchCase="'status'">
+                <span
+                  class="status-tag"
+                  [ngClass]="getStatusClass(getCellValue(item, column))"
+                >
+                  {{ getStatusLabel(getCellValue(item, column)) }}
+                </span>
+              </span>
+
+              <!-- Date Type -->
+              <span *ngSwitchCase="'date'">
+                {{ getCellValue(item, column) | date: 'short' }}
+              </span>
+
+              <!-- Action Type -->
+              <div *ngSwitchCase="'action'" class="action-buttons">
+                <button
+                  *ngFor="let action of getVisibleActions(item)"
+                  class="action-btn"
+                  [ngClass]="action.color || 'primary'"
+                  (click)="onActionClick(action.key, item); $event.stopPropagation()"
+                  [title]="action.label"
+                >
+                  <fa-icon *ngIf="action.faIcon" [icon]="action.faIcon"></fa-icon>
+                  <span *ngIf="!action.faIcon">{{ action.label }}</span>
+                </button>
+              </div>
+
+              <!-- Default -->
+              <span *ngSwitchDefault>
+                {{ getCellValue(item, column) }}
+              </span>
+
+            </ng-container>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <!-- No Data Message -->
+      <div *ngIf="dataSource.length === 0 && !isLoading" class="no-data">
+        Aucun élément trouvé.
+      </div>
+    </div>
+
+    <!-- Pagination Section -->
+    <div class="pagination-section" *ngIf="config.showPagination">
+      <div class="pagination-controls">
+        <button
+          class="nav-btn"
+          [disabled]="currentPage === 0"
+          (click)="prevPage()"
+          title="Page précédente"
+        >
+          <fa-icon [icon]="faArrowLeft" class="icon"></fa-icon> Précédent
+        </button>
+        <span class="page-info">
+          Page {{ currentPage + 1 }} sur {{ getTotalPages() }}
+        </span>
+        <button
+          class="nav-btn"
+          [disabled]="currentPage >= getTotalPages() - 1"
+          (click)="nextPage()"
+          title="Page suivante"
+        >
+          Suivant <fa-icon [icon]="faArrowRight" class="icon"></fa-icon>
+        </button>
+        <span>Afficher :</span>
+        <select [formControl]="itemsPerPageControl" class="page-size">
+          <option
+            *ngFor="let size of config.pageSizeOptions"
+            [value]="size"
+          >
+            {{ size }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Action Section -->
+    <div class="action-section" *ngIf="config.showAddButton">
+      <button
+        class="add-btn"
+        (click)="onAddClick()"
+        [title]="config.addButtonText"
+      >
+        <fa-icon [icon]="faPlus" class="icon"></fa-icon> {{ config.addButtonText }}
+      </button>
+    </div>
+
+  </div>
+</div>

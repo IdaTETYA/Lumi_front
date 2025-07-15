@@ -1,0 +1,186 @@
+$primary-color: #26A69A; // Teal principal pour le contexte médical
+$accent-color: #1976D2; // Bleu foncé pour le bouton, inspiré de la capture
+$background-color: #F5F7FA; // Fond clair et apaisant
+$text-color: #424242; // Texte sombre pour lisibilité
+$error-color: #D32F2F; // Rouge pour les erreurs
+$border-color: #E0E0E0; // Bordure subtile
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: $background-color;
+  padding: 1rem;
+  font-family: 'Arial', sans-serif;
+}
+
+.login-card {
+  background: #FFFFFF;
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+mat-icon {
+  //font-size: 50px; // Augmentation de la taille de l'icône à 64px (au lieu de 24px par défaut)
+  //color: $primary-color;
+  color: Teal;
+  //width: 65px;
+  //height: 100px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: $text-color;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #757575;
+  margin-bottom: 1.5rem;
+}
+
+.welcome-text {
+  font-size: 18px;
+  font-weight: 500;
+  color: $text-color;
+  margin-bottom: 0.25rem;
+}
+
+.welcome-subtext {
+  font-size: 14px;
+  color: #757575;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  text-align: left;
+  margin-bottom: 1rem;
+
+  label {
+    display: block;
+    font-size: 14px;
+    color: $text-color;
+    margin-bottom: 0.25rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box; // Assure une taille cohérente
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 5px rgba($primary-color, 0.3);
+    }
+  }
+
+  .error {
+    font-size: 12px;
+    color: $error-color;
+    margin-top: 0.25rem;
+  }
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  font-size: 14px;
+  color: #757575;
+
+  label {
+    display: flex;
+    align-items: center;
+    input[type="checkbox"] {
+      margin-right: 0.5rem;
+    }
+  }
+
+  a.forgot-password {
+    color: $primary-color;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.sign-in-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: teal;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover:not(:disabled) {
+    background-color: teal;
+  }
+
+  &:disabled {
+    background-color: #B0BEC5;
+    cursor: not-allowed;
+  }
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #FFFFFF;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.security-text {
+  font-size: 12px;
+  color: #757575;
+  margin-top: 1rem;
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    max-width: 90%;
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .form-group input {
+    padding: 0.5rem;
+  }
+}
+/* Ajout dans login.component.scss */
+.success-snackbar {
+  background-color: #4CAF50; // Vert pour succès
+  color: #FFFFFF;
+}
+
+.error-snackbar {
+  background-color: #D32F2F; // Rouge pour erreurs
+  color: #FFFFFF;
+}
+

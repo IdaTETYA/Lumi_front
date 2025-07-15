@@ -1,0 +1,19 @@
+<div class="main-layout">
+  <!-- Topbar -->
+  <app-topbar></app-topbar>
+
+
+  <!-- Sidebar et contenu principal -->
+  <div class="content-wrapper">
+    <!-- Sidebar -->
+
+    <app-sidebar (sidebarToggled)="onSidebarToggle($event)">
+
+    </app-sidebar>
+
+    <!-- Contenu principal (milieu) -->
+    <main class="content" [class.expanded]="isSidebarExpanded">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

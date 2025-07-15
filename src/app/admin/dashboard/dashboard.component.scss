@@ -1,0 +1,246 @@
+// Styles pour le dashboard médical
+.dashboard-container {
+  background-color: #f8fafc;
+  min-height: 100vh;
+}
+
+// Header gradient personnalisé
+.header-gradient {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border-radius: inherit;
+  }
+}
+
+// Cartes statistiques
+.stat-card {
+  transition: all 0.3s ease;
+  border: 1px solid #e5e7eb;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// Icônes colorées
+.icon-wrapper {
+  &.blue {
+    background-color: #dbeafe;
+    .icon {
+      color: #3b82f6;
+    }
+  }
+
+  &.green {
+    background-color: #dcfce7;
+    .icon {
+      color: #16a34a;
+    }
+  }
+
+  &.purple {
+    background-color: #f3e8ff;
+    .icon {
+      color: #9333ea;
+    }
+  }
+
+  &.orange {
+    background-color: #fed7aa;
+    .icon {
+      color: #ea580c;
+    }
+  }
+}
+
+// Activité récente
+.activity-item {
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #f1f5f9;
+  }
+}
+
+.activity-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.green {
+    background-color: #dcfce7;
+    color: #16a34a;
+  }
+
+  &.blue {
+    background-color: #dbeafe;
+    color: #3b82f6;
+  }
+
+  &.purple {
+    background-color: #f3e8ff;
+    color: #9333ea;
+  }
+
+  &.orange {
+    background-color: #fed7aa;
+    color: #ea580c;
+  }
+}
+
+// Boutons d'action
+.action-button {
+  transition: all 0.2s ease;
+
+  &.primary {
+    background-color: #3b82f6;
+    color: white;
+
+    &:hover {
+      background-color: #2563eb;
+      transform: translateY(-1px);
+    }
+  }
+
+  &.secondary {
+    background-color: #f1f5f9;
+    color: #475569;
+
+    &:hover {
+      background-color: #e2e8f0;
+    }
+  }
+}
+
+// Statut du système
+.system-status {
+  &.operational {
+    background-color: #f0fdf4;
+    border-color: #bbf7d0;
+
+    .status-title {
+      color: #166534;
+    }
+
+    .status-message {
+      color: #15803d;
+    }
+
+    .status-metric {
+      color: #15803d;
+    }
+  }
+
+  &.warning {
+    background-color: #fffbeb;
+    border-color: #fed7aa;
+
+    .status-title {
+      color: #92400e;
+    }
+  }
+
+  &.error {
+    background-color: #fef2f2;
+    border-color: #fecaca;
+
+    .status-title {
+      color: #991b1b;
+    }
+  }
+}
+
+// Animations
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.5s ease-out;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header-gradient {
+    padding: 1rem;
+
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    padding: 1rem;
+  }
+}
+
+// Scrollbar personnalisée
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+// Utilitaires
+.text-gradient {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.shadow-soft {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.hover-lift {
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}

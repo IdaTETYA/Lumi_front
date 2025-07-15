@@ -1,0 +1,18 @@
+<div class="modal-container">
+  <h2 mat-dialog-title>Refuser le médecin</h2>
+  <mat-dialog-content>
+    <p>Vous êtes sur le point de changer le status de  <strong>{{ data.doctorName }}</strong>. Veuillez indiquer le motif du refus :</p>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Motif du refus</mat-label>
+      <textarea matInput [(ngModel)]="reason" rows="4" placeholder="Saisissez le motif ici..."></textarea>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">
+      <mat-icon>cancel</mat-icon> Annuler
+    </button>
+    <button mat-raised-button color="warn" [disabled]="!reason.trim()" (click)="onSubmit()">
+      <mat-icon>send</mat-icon> Confirmer
+    </button>
+  </mat-dialog-actions>
+</div>

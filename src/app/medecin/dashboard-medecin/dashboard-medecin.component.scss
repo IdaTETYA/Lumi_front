@@ -1,0 +1,534 @@
+// Styles pour le dashboard médecin
+.dashboard-container {
+  background-color: #f8fafc;
+  min-height: 100vh;
+}
+
+// Header avec navigation
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  .header-left {
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1f2937;
+      margin: 0;
+    }
+
+    .date-text {
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin-top: 0.25rem;
+    }
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .search-container {
+      position: relative;
+
+      input {
+        padding-left: 2.5rem;
+        padding-right: 1rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+
+        &:focus {
+          outline: none;
+          border-color: #3b82f6;
+          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #9ca3af;
+      }
+    }
+
+    .notification-badge {
+      position: relative;
+
+      .badge {
+        position: absolute;
+        top: -0.25rem;
+        right: -0.25rem;
+        background-color: #ef4444;
+        color: white;
+        font-size: 0.75rem;
+        border-radius: 9999px;
+        width: 1.25rem;
+        height: 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+// Header gradient médecin
+.doctor-header {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));
+    border-radius: inherit;
+  }
+
+  .status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: white;
+
+    &.online {
+      animation: pulse 2s infinite;
+    }
+  }
+
+  .online-button {
+    background-color: rgba(255, 255, 255, 0.2);
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+  }
+}
+
+// Cartes statistiques
+.stat-card {
+  background: white;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid #f1f5f9;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .stat-icon {
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 1.25rem;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-title {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-subtitle {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-growth {
+    font-size: 0.75rem;
+    color: #059669;
+    font-weight: 500;
+  }
+}
+
+// Section des rendez-vous
+.appointments-section {
+  .appointment-badge {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .appointment-item {
+    background-color: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    transition: all 0.3s ease;
+    border: 1px solid #f1f5f9;
+
+    &:hover {
+      background-color: #f3f4f6;
+      transform: translateX(4px);
+    }
+
+    .patient-avatar {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+
+    .patient-info {
+      .patient-name {
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 0.25rem;
+      }
+
+      .appointment-time {
+        display: flex;
+        align-items: center;
+        font-size: 0.875rem;
+        color: #6b7280;
+        margin-bottom: 0.25rem;
+
+        .time-separator {
+          margin: 0 0.5rem;
+        }
+      }
+
+      .appointment-description {
+        font-size: 0.75rem;
+        color: #9ca3af;
+      }
+    }
+
+    .consultation-badge {
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+
+      &.consultation {
+        background-color: #dbeafe;
+        color: #1d4ed8;
+      }
+
+      &.teleconsultation {
+        background-color: #d1fae5;
+        color: #065f46;
+      }
+    }
+
+    .start-button {
+      background-color: #10b981;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      &:hover {
+        background-color: #059669;
+        transform: translateY(-1px);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+// Section performance
+.performance-section {
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  color: white;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+
+  .performance-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .performance-icon {
+      font-size: 1.25rem;
+    }
+  }
+
+  .performance-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .metric-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .metric-label {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.875rem;
+      }
+
+      .metric-value {
+        font-size: 1.25rem;
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+// Section avis récents
+.reviews-section {
+  background: white;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  .reviews-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    .star-icon {
+      color: #fbbf24;
+      margin-right: 0.5rem;
+    }
+
+    h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin: 0;
+    }
+  }
+
+  .review-item {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f3f4f6;
+    margin-bottom: 1rem;
+
+    &:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .review-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+
+      .reviewer-avatar {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+        font-size: 0.75rem;
+        margin-right: 0.75rem;
+      }
+
+      .reviewer-info {
+        .reviewer-name {
+          font-size: 0.875rem;
+          font-weight: 600;
+          color: #1f2937;
+          margin-bottom: 0.25rem;
+        }
+
+        .star-rating {
+          display: flex;
+          gap: 0.125rem;
+
+          .star {
+            color: #fbbf24;
+            font-size: 0.75rem;
+          }
+        }
+      }
+    }
+
+    .review-comment {
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+
+    .review-time {
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+  }
+}
+
+// Classes utilitaires pour les couleurs
+.text-blue-600 { color: #2563eb; }
+.text-green-600 { color: #16a34a; }
+.text-purple-600 { color: #9333ea; }
+.text-orange-600 { color: #ea580c; }
+
+.bg-blue-100 { background-color: #dbeafe; }
+.bg-green-100 { background-color: #dcfce7; }
+.bg-purple-100 { background-color: #f3e8ff; }
+.bg-orange-100 { background-color: #fed7aa; }
+
+.bg-blue-600 { background-color: #2563eb; }
+.bg-green-600 { background-color: #16a34a; }
+.bg-purple-600 { background-color: #9333ea; }
+.bg-orange-600 { background-color: #ea580c; }
+
+// Animations
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+
+    .header-right {
+      justify-content: space-between;
+    }
+  }
+
+  .stat-card {
+    padding: 1rem;
+  }
+
+  .appointment-item {
+    flex-direction: column;
+    gap: 0.75rem;
+
+    .start-button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .performance-section {
+    padding: 1rem;
+  }
+
+  .reviews-section {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-container {
+    padding: 1rem;
+  }
+
+  .stat-card {
+    padding: 0.75rem;
+
+    .stat-value {
+      font-size: 1.25rem;
+    }
+  }
+
+  .appointment-item {
+    padding: 0.75rem;
+
+    .patient-avatar {
+      width: 2rem;
+      height: 2rem;
+      font-size: 0.75rem;
+    }
+  }
+}
+
+// Modes sombre (optionnel)
+@media (prefers-color-scheme: dark) {
+  .dashboard-container {
+    background-color: #0f172a;
+    color: #e2e8f0;
+  }
+
+  .stat-card {
+    background-color: #1e293b;
+    border-color: #334155;
+  }
+
+  .appointment-item {
+    background-color: #1e293b;
+    border-color: #334155;
+
+    &:hover {
+      background-color: #334155;
+    }
+  }
+
+  .reviews-section {
+    background-color: #1e293b;
+    border-color: #334155;
+  }
+}
+
+// Styles d'impression
+@media print {
+  .dashboard-header .header-right,
+  .start-button,
+  .online-button {
+    display: none;
+  }
+
+  .dashboard-container {
+    background-color: white;
+    color: black;
+  }
+
+  .stat-card,
+  .appointment-item,
+  .reviews-section {
+    box-shadow: none;
+    border: 1px solid #d1d5db;
+  }
+}

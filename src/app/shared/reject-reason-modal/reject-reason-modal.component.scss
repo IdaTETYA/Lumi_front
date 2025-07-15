@@ -1,0 +1,48 @@
+.modal-container {
+  padding: 16px;
+
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+    //color: #006666; /* Teal foncé pour le titre */
+    margin: 0 0 16px 0;
+  }
+
+  p {
+    font-size: 14px;
+    //color: #5e7c7c; /* Teal grisâtre pour le texte */
+    margin-bottom: 16px;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  mat-form-field {
+    textarea {
+      font-size: 14px;
+      //color: #006666; /* Teal foncé pour le texte saisi */
+    }
+
+    ::ng-deep .mat-form-field-outline {
+      //color: #008080; /* Teal principal pour le contour */
+    }
+  }
+
+  mat-dialog-actions {
+    display: flex;
+    gap: 12px;
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+}

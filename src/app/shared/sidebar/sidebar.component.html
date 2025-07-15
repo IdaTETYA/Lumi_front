@@ -1,0 +1,114 @@
+<div class="sidebar-container" [class.collapsed]="!isSidebarExpanded">
+  <!-- Sidebar header with logo and toggle button -->
+  <div class="sidebar-header">
+    <div class="logo-container">
+      <span class="logo-text" *ngIf="isSidebarExpanded">Lumi</span>
+    </div>
+    <button class="toggle-btn" (click)="toggleSidebar()">
+      <fa-icon [icon]="faBars" size="sm"></fa-icon>
+    </button>
+  </div>
+
+  <!-- Navigation list -->
+  <div class="nav-container">
+    <!-- Menu section -->
+    <div class="menu-section">
+      <span class="section-title" *ngIf="isSidebarExpanded">Menu</span>
+      <ul class="main-nav">
+        <!-- Dashboard -->
+        <li class="nav-item" [ngClass]="{'active': router.url === '/admin/dashboard'}">
+          <fa-icon size="sm" [icon]="faDashboard" class="nav-icon" (click)="navigateTo('/admin/dashboard')" [ngClass]="{'clickable': !isSidebarExpanded}" [matTooltip]="isSidebarExpanded ? '' : 'Dashboard'" matTooltipPosition="right"></fa-icon>
+          <a routerLink="/admin/dashboard" *ngIf="isSidebarExpanded">Dashboard</a>
+        </li>
+
+        <!-- Products -->
+        <li class="nav-item" [ngClass]="{'active': router.url === '/admin/doctors'}">
+          <fa-icon size="sm" [icon]="faBox" class="nav-icon" (click)="navigateTo('/admin/doctors')" [ngClass]="{'clickable': !isSidebarExpanded}" [matTooltip]="isSidebarExpanded ? '' : 'Medecins'" matTooltipPosition="right"></fa-icon>
+          <a routerLink="/admin/doctors" *ngIf="isSidebarExpanded">Medecins</a>
+        </li>
+
+        <!-- Schedule -->
+        <li class="nav-item" [ngClass]="{'active': router.url === '/admin/documents'}">
+          <fa-icon size="sm" [icon]="faCalendarAlt" class="nav-icon" (click)="navigateTo('/admin/documents')" [ngClass]="{'clickable': !isSidebarExpanded}" [matTooltip]="isSidebarExpanded ? '' : 'Documents'" matTooltipPosition="right"></fa-icon>
+          <a routerLink="/admin/documents" *ngIf="isSidebarExpanded">Documents</a>
+        </li>
+
+        <li class="nav-item" [ngClass]="{'active': router.url === '/admin/dashbordMedecin'}">
+          <fa-icon size="sm" [icon]="faCalendarAlt" class="nav-icon" (click)="navigateTo('/admin/dashbordMedecin')" [ngClass]="{'clickable': !isSidebarExpanded}" [matTooltip]="isSidebarExpanded ? '' : 'Documents'" matTooltipPosition="right"></fa-icon>
+          <a routerLink="/admin/dashbordMedecin" *ngIf="isSidebarExpanded">Documents</a>
+        </li>
+
+        <!-- My Task -->
+        <li class="nav-item" [ngClass]="{'active': router.url === '/admin/users'}">
+          <fa-icon size="sm" [icon]="faTasks" class="nav-icon" (click)="navigateTo('/admin/users')" [ngClass]="{'clickable': !isSidebarExpanded}" [matTooltip]="isSidebarExpanded ? '' : 'Utilisateurs'" matTooltipPosition="right"></fa-icon>
+          <a routerLink="/admin/users" *ngIf="isSidebarExpanded">Utilisateur</a>
+          <span class="notification-count" *ngIf="isSidebarExpanded">{{ getNotificationCount() }}</span>
+        </li>
+
+        <!-- Reporting -->
+        <li class="nav-item" [ngClass]="{'active': router.url === '/admin/reporting'}">
+          <fa-icon size="sm" [icon]="faChartBar" class="nav-icon" (click)="navigateTo('/admin/reporting')" [ngClass]="{'clickable': !isSidebarExpanded}" [matTooltip]="isSidebarExpanded ? '' : 'Reporting'" matTooltipPosition="right"></fa-icon>
+          <a routerLink="/admin/reporting" *ngIf="isSidebarExpanded">Reporting</a>
+        </li>
+      </ul>
+
+      <!-- Account section -->
+      <div class="account-section">
+        <span class="section-title" *ngIf="isSidebarExpanded">Account</span>
+        <ul class="main-nav">
+          <!-- User -->
+          <li class="nav-item" [ngClass]="{'active': router.url === '/admin/user'}">
+            <fa-icon size="sm" [icon]="faUser" class="nav-icon" (click)="navigateTo('/admin/user')" [ngClass]="{'clickable': !isSidebarExpanded}" [matTooltip]="isSidebarExpanded ? '' : 'User'" matTooltipPosition="right"></fa-icon>
+            <a routerLink="/admin/user" *ngIf="isSidebarExpanded">User</a>
+          </li>
+
+          <!-- Notification -->
+          <li class="nav-item" [ngClass]="{'active': router.url === '/admin/notifications'}">
+            <fa-icon size="sm" [icon]="faBell" class="nav-icon" (click)="navigateTo('/admin/notifications')" [ngClass]="{'clickable': !isSidebarExpanded}" [matTooltip]="isSidebarExpanded ? '' : 'Notification'" matTooltipPosition="right"></fa-icon>
+            <a routerLink="/admin/notifications" *ngIf="isSidebarExpanded">Notification</a>
+          </li>
+
+          <!-- Live chat -->
+          <li class="nav-item" [ngClass]="{'active': router.url === '/admin/chat'}">
+            <fa-icon size="sm" [icon]="faComments" class="nav-icon" (click)="navigateTo('/admin/chat')" [ngClass]="{'clickable': !isSidebarExpanded}" [matTooltip]="isSidebarExpanded ? '' : 'Live chat'" matTooltipPosition="right"></fa-icon>
+            <a routerLink="/admin/chat" *ngIf="isSidebarExpanded">Live chat</a>
+          </li>
+
+          <!-- Help -->
+          <li class="nav-item" [ngClass]="{'active': router.url === '/admin/help'}">
+            <fa-icon size="sm" [icon]="faQuestionCircle" class="nav-icon" (click)="navigateTo('/admin/help')" [ngClass]="{'clickable': !isSidebarExpanded}" [matTooltip]="isSidebarExpanded ? '' : 'Help'" matTooltipPosition="right"></fa-icon>
+            <a routerLink="/admin/help" *ngIf="isSidebarExpanded">Help</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- User profile dropdown -->
+<!--  <div class="user-profile" (click)="onUserProfileClick()" #userProfile [ngClass]="{'active': router.url === '/profile' || router.url === '/settings' || router.url === '/upgrade' || router.url === '/add-account'}">-->
+<!--    <div class="user-info">-->
+<!--      <img src="https://via.placeholder.com/40" alt="User Avatar" class="user-avatar" />-->
+<!--      <div class="user-details" *ngIf="isSidebarExpanded">-->
+<!--        <span class="user-name">{{ userName }}</span>-->
+<!--        <span class="user-email">{{ userEmail }}</span>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    @if (showDropdown && isSidebarExpanded) {-->
+<!--      <div class="dropdown" [@fadeInOut]>-->
+<!--        <ul>-->
+<!--          <li><a routerLink="/profile" (click)="navigateTo('/profile')"><fa-icon size="sm" [icon]="faUser" class="nav-icon"></fa-icon>Profile</a></li>-->
+<!--          <li><a routerLink="/upgrade" (click)="navigateTo('/upgrade')"><fa-icon size="sm" [icon]="faBox" class="nav-icon"></fa-icon>Upgrade to pro</a></li>-->
+<!--          <li><a routerLink="/settings" (click)="navigateTo('/settings')"><fa-icon size="sm" [icon]="faChartBar" class="nav-icon"></fa-icon>Settings</a></li>-->
+<!--          <li><a routerLink="/add-account" (click)="navigateTo('/add-account')"><fa-icon size="sm" [icon]="faUserPlus" class="nav-icon"></fa-icon>Add account</a></li>-->
+<!--          <li><a href="#" (click)="onLogout()"><fa-icon size="sm" [icon]="faSignOutAlt" class="nav-icon"></fa-icon>Log out</a></li>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--    }-->
+<!--  </div>-->
+</div>
+
+  <ng-content *ngIf="isSidebarExpanded"> </ng-content>
+

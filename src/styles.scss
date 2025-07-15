@@ -1,0 +1,122 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme((
+    color: (
+      theme-type: light,
+      primary: mat.$cyan-palette,
+      tertiary: mat.$orange-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Custom Turquoise Theme */
+:root {
+  --color-turquoise-50: #f0fdfa;
+  --color-turquoise-100: #ccfbf1;
+  --color-turquoise-200: #99f6e4;
+  --color-turquoise-300: #5eead4;
+  --color-turquoise-400: #2dd4bf;
+  --color-turquoise-500: #14b8a6;
+  --color-turquoise-600: #0d9488;
+  --color-turquoise-700: #0f766e;
+  --color-turquoise-800: #115e59;
+  --color-turquoise-900: #134e4a;
+}
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: #1f2937;
+  background-color: #f9fafb;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #14b8a6, #0d9488);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #0d9488, #0f766e);
+}
+
+/* Custom Turquoise Classes */
+.bg-turquoise-50 { background-color: var(--color-turquoise-50); }
+.bg-turquoise-100 { background-color: var(--color-turquoise-100); }
+.bg-turquoise-200 { background-color: var(--color-turquoise-200); }
+.bg-turquoise-300 { background-color: var(--color-turquoise-300); }
+.bg-turquoise-400 { background-color: var(--color-turquoise-400); }
+.bg-turquoise-500 { background-color: var(--color-turquoise-500); }
+.bg-turquoise-600 { background-color: var(--color-turquoise-600); }
+.bg-turquoise-700 { background-color: var(--color-turquoise-700); }
+.bg-turquoise-800 { background-color: var(--color-turquoise-800); }
+.bg-turquoise-900 { background-color: var(--color-turquoise-900); }
+
+.text-turquoise-50 { color: var(--color-turquoise-50); }
+.text-turquoise-100 { color: var(--color-turquoise-100); }
+.text-turquoise-200 { color: var(--color-turquoise-200); }
+.text-turquoise-300 { color: var(--color-turquoise-300); }
+.text-turquoise-400 { color: var(--color-turquoise-400); }
+.text-turquoise-500 { color: var(--color-turquoise-500); }
+.text-turquoise-600 { color: var(--color-turquoise-600); }
+.text-turquoise-700 { color: var(--color-turquoise-700); }
+.text-turquoise-800 { color: var(--color-turquoise-800); }
+.text-turquoise-900 { color: var(--color-turquoise-900); }
+
+.from-turquoise-500 { --tw-gradient-from: var(--color-turquoise-500); }
+.to-turquoise-500 { --tw-gradient-to: var(--color-turquoise-500); }
+.from-turquoise-600 { --tw-gradient-from: var(--color-turquoise-600); }
+.to-turquoise-600 { --tw-gradient-to: var(--color-turquoise-600); }
+.from-turquoise-700 { --tw-gradient-from: var(--color-turquoise-700); }
+.to-turquoise-700 { --tw-gradient-to: var(--color-turquoise-700); }
+
+/* Animation Classes */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}

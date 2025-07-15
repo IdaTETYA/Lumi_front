@@ -1,0 +1,98 @@
+@import '@angular/material';
+
+// Define primary palette
+$custom-primary: (
+  50: #e0f7fa,
+  100: #b2ebf2,
+  200: #80deea,
+  300: #4dd0e1,
+  400: #26c6da,
+  500: #27A4A6, // Your primary color
+  600: #21989A,
+  700: #1a8789,
+  800: #147677,
+  900: #0d5555,
+  contrast: (
+    50: #000,
+    100: #000,
+    200: #000,
+    300: #000,
+    400: #000,
+    500: #fff,
+    600: #fff,
+    700: #fff,
+    800: #fff,
+    900: #fff,
+  )
+);
+
+// Define accent palette
+$custom-accent: (
+  50: #ffebee,
+  100: #ffcdd2,
+  200: #ef9a9a,
+  300: #e57373,
+  400: #ef5350,
+  500: #F85E68, // Your accent color
+  600: #E0555F,
+  700: #c62828,
+  800: #b71c1c,
+  900: #7f0000,
+  contrast: (
+    50: #000,
+    100: #000,
+    200: #000,
+    300: #000,
+    400: #000,
+    500: #fff,
+    600: #fff,
+    700: #fff,
+    800: #fff,
+    900: #fff,
+  )
+);
+
+// Create the theme
+$custom-theme: mat-light-theme((
+  color: (
+    primary: $custom-primary,
+    accent: $custom-accent,
+  )
+));
+
+// Apply the theme
+@include angular-material-theme($custom-theme);
+
+// Global styles
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #F5F5F5;
+  color: #333333;
+}
+
+.mat-card {
+  background-color: #FFFFFF;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  border-radius: 4px;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-underline {
+  display: none;
+}
+
+.mat-form-field-label, .mat-hint {
+  color: #666666;
+}
+
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: #27A4A6;
+}
+
+.mat-form-field.mat-focused .mat-form-field-flex {
+  border-color: #27A4A6;
+}

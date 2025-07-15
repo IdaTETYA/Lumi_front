@@ -1,0 +1,55 @@
+.stats-card {
+  @apply relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 bg-white/80 backdrop-blur-sm rounded-2xl;
+}
+
+.stats-background {
+  @apply absolute inset-0;
+}
+
+.stats-decoration {
+  @apply absolute top-0 right-0 w-20 h-20 rounded-full blur-2xl;
+}
+
+.stats-content {
+  @apply p-6 relative z-10 flex items-start justify-between;
+}
+
+.stats-info {
+  @apply flex-1;
+}
+
+.stats-title {
+  @apply text-sm font-medium text-gray-600 mb-1;
+}
+
+.stats-value {
+  @apply text-3xl font-bold text-gray-900 mb-2;
+}
+
+.stats-description {
+  @apply text-xs text-gray-500;
+}
+
+.stats-change {
+  @apply flex items-center mt-2;
+}
+
+.change-badge {
+  @apply text-xs font-medium px-2 py-1 rounded-full;
+}
+
+.change-positive {
+  @apply text-emerald-700 bg-emerald-100;
+}
+
+.change-negative {
+  @apply text-red-700 bg-red-100;
+}
+
+.change-neutral {
+  @apply text-gray-700 bg-gray-100;
+}
+
+.stats-icon {
+  @apply w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg;
+}
